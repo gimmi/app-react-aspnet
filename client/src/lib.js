@@ -1,9 +1,14 @@
-export function component() {
-  var element = document.createElement('div');
+export const component = async () => {
+  await waitAsync();
 
-  // This is a comment
+  const element = document.createElement('div');
 
   element.innerHTML = 'Hello Webpack! process.env.NODE_ENV = ' + process.env.NODE_ENV;
 
   return element;
 }
+
+
+export const waitAsync = () => new Promise(resolve => {
+    setTimeout(resolve, 1000);
+});

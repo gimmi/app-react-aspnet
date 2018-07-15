@@ -1,3 +1,5 @@
 import { component } from './lib';
 
-document.body.appendChild(component());
+component().then(cmp => {
+    document.body.appendChild(cmp);
+});
