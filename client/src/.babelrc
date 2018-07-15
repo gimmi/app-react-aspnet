@@ -2,6 +2,7 @@
     "presets": [
         ["env", {
             "modules": false // See https://github.com/babel/babel-loader/issues/138
-        }]
+        }],
+        ["react"]
     ]
 }

@@ -1,5 +1,6 @@
-import { component } from './lib';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-component().then(cmp => {
-    document.body.appendChild(cmp);
-});
+import { HelloComponent } from './HelloComponent';
+
+ReactDOM.render(<HelloComponent />, document.getElementById('root'));
