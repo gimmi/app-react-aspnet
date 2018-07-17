@@ -25,7 +25,7 @@ module.exports = function (env) {
             rules: [{
                 test: /\.js$/,
                 include: path.resolve(__dirname, 'src'),
-                use: [ 'babel-loader' ]
+                use: [ 'babel-loader', 'eslint-loader' ]
             }]
         },
         plugins: [
