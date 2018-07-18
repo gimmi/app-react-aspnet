@@ -8,6 +8,7 @@ module.exports = function (env) {
         mode: 'none',
         entry: {
             main: [
+                './src/index.scss',
                 'babel-polyfill',
                 './src/index'
             ]
@@ -26,6 +27,20 @@ module.exports = function (env) {
                 test: /\.js$/,
                 include: path.resolve(__dirname, 'src'),
                 use: [ 'babel-loader', 'eslint-loader' ]
+            }, {
+                test: /\.scss$/,
+                use: [{
+                    loader: 'style-loader'
+                }, {
+                    loader: 'css-loader'
+                }, {
+                    loader: 'postcss-loader',
+                    options: {
+                        plugins: [ require('autoprefixer') ]
+                    }
+                }, {
+                    loader: 'sass-loader'
+                }]
             }]
         },
         plugins: [
