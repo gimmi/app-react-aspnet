@@ -29,18 +29,7 @@ module.exports = function (env) {
                 use: [ 'babel-loader', 'eslint-loader' ]
             }, {
                 test: /\.scss$/,
-                use: [{
-                    loader: 'style-loader'
-                }, {
-                    loader: 'css-loader'
-                }, {
-                    loader: 'postcss-loader',
-                    options: {
-                        plugins: [ require('autoprefixer') ]
-                    }
-                }, {
-                    loader: 'sass-loader'
-                }]
+                use: [ 'style-loader', 'css-loader', 'sass-loader' ]
             }]
         },
         plugins: [

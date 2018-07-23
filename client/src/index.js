@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { HelloComponent } from './HelloComponent';
+import { MainComponent } from './MainComponent';
 
-ReactDOM.render(<HelloComponent />, document.getElementById('root'));
+ReactDOM.render(<MainComponent />, document.getElementById('root'));
