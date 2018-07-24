@@ -1,7 +1,7 @@
 import React from 'react';
 
 export const NavbarComponent = () => (
-    <nav className="navbar is-primary is-fixed-top">
+    <nav className="navbar is-primary">
         <div className="navbar-brand">
             <a className="navbar-item">
                 <img src="https://bulma.io/images/bulma-logo.png" />

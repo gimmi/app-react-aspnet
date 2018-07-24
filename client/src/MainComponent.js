@@ -10,7 +10,7 @@ export const MainComponent = () => {
     return (
         <div>
             <NavbarComponent />
-            <div>{ary}</div>
+            <div className="container is-fluid">{ary}</div>
         </div>
     )
 };
