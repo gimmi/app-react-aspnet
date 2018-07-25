@@ -1,3 +1,4 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
@@ -19,7 +20,6 @@ module.exports = function (env) {
         },
         devtool: ifDev('source-maps', false),
         optimization: {
-            nodeEnv: ifDev('development', 'production'),
             minimize: ifDev(false, true)
         },
         module: {
@@ -33,6 +33,11 @@ module.exports = function (env) {
             }]
         },
         plugins: [
+            new webpack.DefinePlugin({
+                'process.env.NODE_ENV': JSON.stringify(ifDev('development', 'production')),
+                'process.env.CLIENT_ID': JSON.stringify(process.env.CLIENT_ID),
+                'process.env.API_KEY': JSON.stringify(process.env.API_KEY)
+            }),
             new HtmlWebpackPlugin({
                 template: './src/index.html'
             })
