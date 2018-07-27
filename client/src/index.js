@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { MainComponent } from './MainComponent';
+import { MainComponent } from './MainComponent'
 
+/*
 import { initGapi } from './gapi';
 
 initGapi().then(gapi => {
@@ -60,5 +61,5 @@ initGapi().then(gapi => {
     authorizeButton.onclick = handleAuthClick;
     signoutButton.onclick = handleSignoutClick;
 });
-
+*/
 ReactDOM.render(<MainComponent />, document.getElementById('root'));

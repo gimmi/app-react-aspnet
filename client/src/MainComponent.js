@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { NavbarComponent } from './NavbarComponent';
+import { LoginComponent } from './LoginComponent';
 
 export const MainComponent = () => {
     const ary = [];
@@ -8,7 +9,7 @@ export const MainComponent = () => {
         ary.push(<p key={i}>This is paragraph #{i}</p>)
     }
     return (
-        <div>
+        <LoginComponent>
             <NavbarComponent />
             <ul>
                 <li>process.env.NODE_ENV: {process.env.NODE_ENV}</li>
@@ -16,6 +17,6 @@ export const MainComponent = () => {
                 <li>process.env.API_KEY: {process.env.API_KEY}</li>
             </ul>
             <div className="container is-fluid">{ary}</div>
-        </div>
+        </LoginComponent>
     )
 };
