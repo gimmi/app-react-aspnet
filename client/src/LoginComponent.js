@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { initGapi } from './gapi';
+import { gapiAsync } from './gapi';
 
 export class LoginComponent extends React.Component {
     constructor() {
@@ -13,7 +13,7 @@ export class LoginComponent extends React.Component {
     }
 
     componentDidMount() {
-        initGapi().then(gapi => {
+        gapiAsync().then(gapi => {
             gapi.auth2.getAuthInstance().isSignedIn.listen(this.updateSigninStatus);
             this.updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
         })
@@ -24,7 +24,7 @@ export class LoginComponent extends React.Component {
     }
 
     signIn() {
-        initGapi().then(gapi => {
+        gapiAsync().then(gapi => {
             gapi.auth2.getAuthInstance().signIn();
         })
     }

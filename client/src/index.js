@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom';
 import { MainComponent } from './MainComponent'
 
 /*
-import { initGapi } from './gapi';
+import { gapiAsync } from './gapi';
 
-initGapi().then(gapi => {
+gapiAsync().then(gapi => {
     var authorizeButton = document.getElementById('authorize_button');
     var signoutButton = document.getElementById('signout_button');
 
