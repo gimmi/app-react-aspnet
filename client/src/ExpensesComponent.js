@@ -14,6 +14,7 @@ export class ExpensesComponent extends React.Component {
             return gapi.client.sheets.spreadsheets.values.get({
                 spreadsheetId: '1LgBEV_wNPFfr-SjlncpPF1tCLdHXKQIhg83PidSUPfU',
                 range: 'Spese!A2:E',
+                majorDimension: 'ROWS',
                 valueRenderOption: 'UNFORMATTED_VALUE'
             })
         }).then(ret => {
