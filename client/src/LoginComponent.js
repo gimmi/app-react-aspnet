@@ -7,7 +7,6 @@ export class LoginComponent extends React.Component {
         super()
 
         this.updateSigninStatus = this.updateSigninStatus.bind(this)
-        this.signIn = this.signIn.bind(this)
 
         this.state = { isSignedIn: false }
     }
@@ -21,12 +20,11 @@ export class LoginComponent extends React.Component {
 
     updateSigninStatus(isSignedIn) {
         this.setState({ isSignedIn })
-    }
-
-    signIn() {
-        gapiAsync().then(gapi => {
-            gapi.auth2.getAuthInstance().signIn();
-        })
+        if (!isSignedIn) {
+            gapiAsync().then(gapi => {
+                gapi.auth2.getAuthInstance().signIn();
+            })
+        }
     }
 
     render() {
@@ -37,8 +35,8 @@ export class LoginComponent extends React.Component {
             <div className="hero is-fullheight">
                 <div className="hero-body">
                     <div className="container has-text-centered">
-                        <p className="title">Please sign in with Google to continue</p>
-                        <button className="button is-primary is-large" onClick={this.signIn}>Sign In</button>
+                        <p className="title">Authenticating with Google...</p>
+                        <p className="subtitle">(ensure popup are enabled for this site)</p>
                     </div>
                 </div>
             </div>
