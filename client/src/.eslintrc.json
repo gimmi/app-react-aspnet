@@ -14,5 +14,8 @@
   },
   "globals": {
     "process": false
+  },
+  "settings": {
+    "react": { "version": "detect" }
   }
 }
