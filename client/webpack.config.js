@@ -14,7 +14,7 @@ module.exports = function (env) {
             ]
         },
         output: {
-            path: path.resolve(__dirname, 'dist'),
+            path: path.resolve(__dirname, '..', 'server', 'src', 'MyCompany.MyStack.MyRestApp', 'wwwroot'),
             filename: ifDev('[name].js', '[hash].js')
         },
         devtool: ifDev('source-maps', false),
