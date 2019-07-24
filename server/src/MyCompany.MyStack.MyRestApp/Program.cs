@@ -58,7 +58,7 @@ namespace MyCompany.MyStack.MyRestApp
                 .Configure(app => {
                     app.UseDeveloperExceptionPage();
                     app.UseStaticFiles(); // Make files in {Content Root}/wwwroot public
-                    app.UseDirectoryBrowser();
+                    //app.UseDirectoryBrowser();
                     app.UseMvc(routes => {
                         routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
                     });

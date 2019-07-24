@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MyCompany.MyStack.MyRestApp": {
+      "commandName": "Project",
+      "workingDirectory": "$(ProjectDir)"
+    }
+  }
+}
