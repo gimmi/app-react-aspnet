@@ -1,8 +1,6 @@
 {
     "presets": [
-        ["@babel/preset-env", {
-            "modules": false // See https://github.com/babel/babel-loader/issues/138
-        }],
-        ["@babel/preset-react"]
+        "@babel/preset-env",
+        "@babel/preset-react"
     ]
 }
