@@ -36,9 +36,6 @@ module.exports = function (env) {
             new HtmlWebpackPlugin({
                 template: './src/index.html'
             })
-        ],
-        devServer: {
-            inline: false
-        }
+        ]
     };
 };
