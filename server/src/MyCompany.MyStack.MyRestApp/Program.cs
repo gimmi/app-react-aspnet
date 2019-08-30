@@ -7,8 +7,9 @@ using Newtonsoft.Json.Serialization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.StaticFiles;
-using Microsoft.Extensions.FileProviders;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace MyCompany.MyStack.MyRestApp
 {
@@ -44,7 +45,12 @@ namespace MyCompany.MyStack.MyRestApp
                     logging.AddConsole();
                 })
                 .ConfigureServices(services => {
-                    services.AddMvc()
+                    services.AddMvc(mvc => {
+                            var policy = new AuthorizationPolicyBuilder()
+                                .RequireAuthenticatedUser()
+                                .Build();
+                            mvc.Filters.Add(new AuthorizeFilter(policy));
+                        })
                         .AddJsonOptions(json => {
                             json.SerializerSettings.Formatting = Formatting.Indented;
                             json.SerializerSettings.ContractResolver = new DefaultContractResolver {
@@ -54,11 +60,15 @@ namespace MyCompany.MyStack.MyRestApp
                             };
                         });
                     services.AddSingleton(appConfig);
+
+                    services.AddAuthentication("Basic")
+                        .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("Basic", null);
                 })
                 .Configure(app => {
                     app.UseDeveloperExceptionPage();
                     app.UseStaticFiles(); // Make files in {Content Root}/wwwroot public
                     //app.UseDirectoryBrowser();
+                    app.UseAuthentication();
                     app.UseMvc(routes => {
                         routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
                     });
