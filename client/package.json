@@ -6,7 +6,8 @@
     "babel-polyfill": "^6.26.0",
     "bulma": "^0.7.5",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "whatwg-fetch": "^3.0.0"
   },
   "scripts": {
     "watch": "webpack --env development --watch",

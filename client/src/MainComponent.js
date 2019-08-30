@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { NavbarComponent } from './NavbarComponent';
+import { ContextInfoComponent } from './ContextInfoComponent';
 
 export const MainComponent = () => {
     const ary = [];
@@ -10,6 +11,7 @@ export const MainComponent = () => {
     return (
         <div>
             <NavbarComponent />
+            <ContextInfoComponent />
             <div className="container is-fluid">{ary}</div>
         </div>
     )

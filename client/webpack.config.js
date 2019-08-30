@@ -10,6 +10,7 @@ module.exports = function (env) {
             main: [
                 './src/index.scss',
                 'babel-polyfill',
+                'whatwg-fetch',
                 './src/index'
             ]
         },
