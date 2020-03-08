@@ -1,0 +1,1 @@
+start /MAX /D "%~dp0client" npm run watch
