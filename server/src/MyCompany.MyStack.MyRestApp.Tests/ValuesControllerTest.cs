@@ -4,30 +4,37 @@ using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 
 namespace MyCompany.MyStack.MyRestApp.Tests
 {
     public class ValuesControllerTest
     {
         private TestUtils _tu;
-        private TestServer _server;
+        private IHost _host;
         private HttpClient _client;
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
             _tu = new TestUtils();
-            var webHostBuilder = Program.CreateHostBuilder(new AppConfig {
+            var appConfig = new AppConfig {
                 DataDir = _tu.TestDir
-            });
-            _server = new TestServer(webHostBuilder);
-            _client = _server.CreateClient();
+            };
+            _host = await Program.CreateHostBuilder(appConfig)
+                .ConfigureWebHost(web => {
+                    web.UseTestServer();
+                })
+                .StartAsync();
+
+            _client = _host.GetTestServer().CreateClient();
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic", "cm9vdDpyb290");
         }
 
         [TearDown]
-        public void TearDown()
+        public async Task TearDown()
         {
+            await _host.StopAsync();
             _tu.Dispose();
         }
 

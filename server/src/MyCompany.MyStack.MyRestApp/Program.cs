@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -9,7 +8,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Extensions.Hosting;
 
 namespace MyCompany.MyStack.MyRestApp
 {
@@ -21,24 +22,33 @@ namespace MyCompany.MyStack.MyRestApp
                 DataDir = args.FirstOrDefault() ?? Directory.GetCurrentDirectory()
             };
 
-            await CreateHostBuilder(appConfig)
-                .Build()
-                .RunAsync();
+            var host = CreateHostBuilder(appConfig).Build();
+
+            await host.RunAsync();
         }
 
-        public static IWebHostBuilder CreateHostBuilder(AppConfig appConfig)
+        public static IHostBuilder CreateHostBuilder(AppConfig appConfig)
         {
-            // https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/generic-host
-            // The Generic Host is new in ASP.NET Core 2.1 and isn't suitable for web hosting scenarios. For web hosting scenarios, use the Web Host.
-            // The Generic Host is under development to replace the Web Host in a future release and act as the primary host API in both HTTP and non-HTTP scenarios.
-            // To run background task, see https://docs.microsoft.com/en-us/aspnet/core/fundamentals/host/hosted-services
-            return new WebHostBuilder()
-                .UseKestrel(options => {
-                    options.AddServerHeader = false;
+            return new HostBuilder()
+                .ConfigureWebHostDefaults(web => {
+                    web.UseUrls("http://0.0.0.0:8080");
+                    web.UseKestrel(options => {
+                        options.AddServerHeader = false;
+                    });
+                    web.Configure(app => {
+                        app.UseDeveloperExceptionPage();
+                        app.UseStaticFiles();
+                        app.UseAuthentication();
+                        // app.UseMvc(routes => {
+                        //     routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
+                        // });
+                        app.UseRouting();
+                        app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+                        app.UseSpa(spa => { }); // https://stackoverflow.com/a/59896579/66629
+                    });
                 })
-                .UseEnvironment(EnvironmentName.Development)
+                .UseEnvironment(Environments.Development)
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseUrls("http://0.0.0.0:8080")
                 .ConfigureLogging(logging => {
                     logging.SetMinimumLevel(LogLevel.Warning);
                     logging.AddFilter(typeof(Program).Namespace, LogLevel.Trace);
@@ -51,7 +61,7 @@ namespace MyCompany.MyStack.MyRestApp
                                 .Build();
                             mvc.Filters.Add(new AuthorizeFilter(policy));
                         })
-                        .AddJsonOptions(json => {
+                        .AddNewtonsoftJson(json => {
                             json.SerializerSettings.Formatting = Formatting.Indented;
                             json.SerializerSettings.ContractResolver = new DefaultContractResolver {
                                 NamingStrategy = new CamelCaseNamingStrategy {
@@ -63,15 +73,6 @@ namespace MyCompany.MyStack.MyRestApp
 
                     services.AddAuthentication("Basic")
                         .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("Basic", null);
-                })
-                .Configure(app => {
-                    app.UseDeveloperExceptionPage();
-                    app.UseStaticFiles(); // Make files in {Content Root}/wwwroot public
-                    //app.UseDirectoryBrowser();
-                    app.UseAuthentication();
-                    app.UseMvc(routes => {
-                        routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
-                    });
                 });
         }
     }
