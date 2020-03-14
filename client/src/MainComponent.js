@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 
 import { ContextInfoComponent } from './ContextInfoComponent';
+import EditorComponent from './EditorComponent';
 
 const useStyles = makeStyles(theme => ({
     navLink: {
@@ -29,10 +30,6 @@ function Index() {
     )
 }
 
-function About() {
-    return <h1>This is the About page</h1>
-}
-
 function Users() {
     return <h1>This is the Users page</h1>
 }
@@ -46,14 +43,14 @@ export function MainComponent() {
                 <Toolbar>
                     <Typography variant="h6">
                         <Link color="inherit" component={RouterLink} className={classes.navLink} to="/">Home</Link>
-                        <Link color="inherit" component={RouterLink} className={classes.navLink} to="/about/">About</Link>
+                        <Link color="inherit" component={RouterLink} className={classes.navLink} to="/editor/">Editor</Link>
                         <Link color="inherit" component={RouterLink} className={classes.navLink} to="/users/">Users</Link>
                     </Typography>
                 </Toolbar>
             </AppBar>
 
             <Route path="/" exact component={Index} />
-            <Route path="/about/" component={About} />
+            <Route path="/editor/" component={EditorComponent} />
             <Route path="/users/" component={Users} />
         </Router>
     );
