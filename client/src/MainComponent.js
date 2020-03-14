@@ -1,18 +1,30 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom';
+import {
+    BrowserRouter as Router,
+    Route,
+    Link as RouterLink
+} from 'react-router-dom';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import Link from '@material-ui/core/Link';
 
 import { ContextInfoComponent } from './ContextInfoComponent';
 
+const useStyles = makeStyles(theme => ({
+    navLink: {
+        marginRight: theme.spacing(1)
+    }
+}));
 
 function Index() {
-    const ary = [];
-    for (let i = 0; i < 100; i++) {
-        ary.push(<p key={i}>This is paragraph #{i}</p>)
-    }
     return (
         <div>
+            <h1>This is the Index page</h1>
             <ContextInfoComponent />
-            <div className="container is-fluid">{ary}</div>
+            <Button variant="contained" color="primary">Hello World</Button>
         </div>
     )
 }
@@ -26,32 +38,23 @@ function Users() {
 }
 
 export function MainComponent() {
-    const ary = [];
-    for (let i = 0; i < 100; i++) {
-        ary.push(<p key={i}>This is paragraph #{i}</p>)
-    }
+    const classes = useStyles();
 
     return (
         <Router>
-            <div>
-                <nav className="navbar is-primary">
-                    <div className="navbar-brand">
-                        <Link to="/" className="navbar-item">
-                            <img src="https://bulma.io/images/bulma-logo.png" />
-                        </Link>
-                    </div>
-                    <div className="navbar-menu is-active">
-                        <div className="navbar-start">
-                            <NavLink to="/about/" className="navbar-item" activeClassName="is-active">About</NavLink>
-                            <NavLink to="/users/" className="navbar-item" activeClassName="is-active">Users</NavLink>
-                        </div>
-                    </div>
-                </nav>
+            <AppBar position="static">
+                <Toolbar>
+                    <Typography variant="h6">
+                        <Link color="inherit" component={RouterLink} className={classes.navLink} to="/">Home</Link>
+                        <Link color="inherit" component={RouterLink} className={classes.navLink} to="/about/">About</Link>
+                        <Link color="inherit" component={RouterLink} className={classes.navLink} to="/users/">Users</Link>
+                    </Typography>
+                </Toolbar>
+            </AppBar>
 
-                <Route path="/" exact component={Index} />
-                <Route path="/about/" component={About} />
-                <Route path="/users/" component={Users} />
-            </div>
+            <Route path="/" exact component={Index} />
+            <Route path="/about/" component={About} />
+            <Route path="/users/" component={Users} />
         </Router>
     );
 }

@@ -8,7 +8,6 @@ module.exports = function (env) {
         mode: 'none',
         entry: {
             main: [
-                './src/index.scss',
                 'babel-polyfill',
                 'whatwg-fetch',
                 './src/index'
@@ -28,9 +27,6 @@ module.exports = function (env) {
                 test: /\.js$/,
                 include: path.resolve(__dirname, 'src'),
                 use: [ 'babel-loader', 'eslint-loader' ]
-            }, {
-                test: /\.scss$/,
-                use: [ 'style-loader', 'css-loader', 'sass-loader' ]
             }]
         },
         plugins: [
